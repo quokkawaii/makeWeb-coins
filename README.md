@@ -6,7 +6,7 @@
 
 <hr/>
 
-# 버그 발생 
+# 버그 발생
 
 - 맥을 처음 구매하고 만든 프로젝트라, 윈도우와 달리 많은 버그가 있었습니다.
 
@@ -73,15 +73,16 @@ npm install -g vite
 2. 검색창에 emmet: include Languages를 검색합니다.
 3. 해당 설정에 **항목추가**를 눌러 줍니다.
 4. 키와 값에 아래의 값을 추가합니다.
+
 ```json
-// key : value
+         key : value
 "javascript" : "javascriptreact",
 "typescript" : "typescriptreact"
 
 ```
 
-**tips**
--
+## **tips**
+
 - div + tap 눌렀을때 div 태그가 아닌 다른게 완성이 될시
   1. cmd + ,
   2. tab completion 입력
@@ -93,13 +94,14 @@ npm install -g vite
 # 9/15
 
 - **CORS** 아래와 같은 에러가 발생했습니다.
+
 ```sh
 
 Access to fetch at 'https://api.coinpaprika.com/v1/tickers/' from origin 'http://localhost:5173' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
 
 ```
 
-- 해당 오류는 브라우저에서 다른 도메인(API)로 fetch를 요청 했을 경우에 
+- 해당 오류는 브라우저에서 다른 도메인(API)로 fetch를 요청 했을 경우에
   서버 측에서 허용하지 않을경우 생기는 에러입니다.
 
 - 해당 코드를 윈도우에서 빌드했을때는 CORS 오류가 생기지 않았습니다.(원인 불명)
@@ -136,20 +138,24 @@ Access to fetch at 'https://api.coinpaprika.com/v1/tickers/' from origin 'http:/
 
 <hr/>
 
-**조건**
--
+## **조건**
+
 1. data라는 변수에 JSON의 데이터를 담았다고 가정합니다.
 2. JSON의 데이터는 아래와 같습니다.
 
 ```json
-id:"id",
-pw:"pw"
+{
+  "id": "id",
+  "pw": "pw"
+}
 ```
+
 <hr/>
 
-**가정**
--
+## **가정**
+
 1. 타입을 하나만 정의했을 경우
+
 ```typescript
   type Data {
     id : string;
@@ -166,15 +172,14 @@ pw:"pw"
 
 - 마찬가지로 id, pw의 값을 사용하지 못했습니다.
 
+## **결론**
 
-**결론**
--
 - JSON으로 받는 데이터들은 타입을 정의하지않아도 저장이 가능합니다.
 
 - 하지만 해당 값들을 사용하기 위해서는 해당 값과 같은 키와 밸류를 타입으로 만들어야 합니다.
 
 - 이와 같이 타입을 정의하지않고 JSON 데이터를 받을 수 있는 이유는 **타입스크립트는 정적 타입 검사를 하는 언어**이기 때문입니다.
-코드 작성이 아닌 런타임에는 javascript로 컴파일 되기때문에 실제 타입 검사를 스킵한다고 합니다.
+  코드 작성이 아닌 런타임에는 javascript로 컴파일 되기때문에 실제 타입 검사를 스킵한다고 합니다.
 
 <hr/>
 
@@ -184,8 +189,8 @@ pw:"pw"
 
 ```typescript
 useEffect(() => {
-  ... 
-  
+  ...
+
   // select > option안에서 해당 string 내용으로 세팅
   searchBit("Bitcoin");
 },[]);
@@ -196,21 +201,19 @@ useEffect(() => {
 <hr />
 
 # 해결 방법
--
-## 1. 또 다른 useEffect를 만들어서 처리
-```typescript
 
+-
+
+## 1. 또 다른 useEffect를 만들어서 처리
+
+```typescript
 useEffect(() => {
-  if(!loading){
+  if (!loading) {
     searchBit("Bitcoin");
   }
-},[loading]);
+}, [loading]);
 ```
 
-- 해당 코드는 JSON 데이터를 모두 받으면 loading의 값이 false값이 되는걸 생각하고 만든 코드입니다. 
+- 해당 코드는 JSON 데이터를 모두 받으면 loading의 값이 false값이 되는걸 생각하고 만든 코드입니다.
 
 - 나름 깔끔하게 처리했다고 생각했지만, "useEffect"를 한번 더 써야한다는 점과 코드칸을 차지 한다는 점이 마음에 걸렸습니다.
-
-## 2. async, await 사용하기
-
-- "useEffect"에 "async"를 적용하려고 하니 에러가 생겨 못쓰는줄 알았습니다. 하지만 매개변수로 오는 콜백함수의 안에 fetch()에 "async"를 적용할 수 있다는 사실을 알았습니다. 
