@@ -1,2 +1,5 @@
-# study-projects
-typescript, react와 같은 기술들로 프로젝트 만들기
+# make Web
+
+- 비트 코인과 같은 코인들의 정보 api로 웹 만들어 보기 
+
+- 참고 : 노마드 코더
