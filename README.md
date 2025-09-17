@@ -75,10 +75,8 @@ npm install -g vite
 4. 키와 값에 아래의 값을 추가합니다.
 
 ```json
-         key : value
 "javascript" : "javascriptreact",
 "typescript" : "typescriptreact"
-
 ```
 
 ## **tips**
